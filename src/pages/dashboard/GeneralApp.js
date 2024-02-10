@@ -23,3 +23,4 @@ const {sidebar} = useSelector((store) => store.app);
 };
 
 export default GeneralApp;
+export default {sidebar};
