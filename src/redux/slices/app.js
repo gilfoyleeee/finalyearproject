@@ -32,13 +32,13 @@ export default slice.reducer;
 
 //
 export function ToggleSidebar() {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
       dispatch(slice.actions.toggleSidebar());
     };
   }
 
 export function UpdateSidebarType(type) {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(slice.actions.updateSidebarType({ type }));
   };
 }
