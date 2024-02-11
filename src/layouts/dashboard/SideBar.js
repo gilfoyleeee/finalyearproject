@@ -29,13 +29,14 @@ const SideBar = () => {
       <Stack direction="column" alignItems={"center"} justifyContent="space-between" sx={{ height: "100%" }} spacing={3}>
         <Stack alignItems={"center"} spacing={4}>
           <Box sx={{
-            backgroundColor: theme.palette.primary.main,
-            height: 64,
-            width: 64,
-            borderRadius: 1.5
+            // backgroundColor: theme.palette.primary.main,
+            height: 72,
+            width: 72,
+            borderRadius: 1.5,
           }}>
             <img src={Logo} alt={"Chat App Logo"} />
           </Box>
+          <Divider sx={{ width: "48px" , borderWidth: "2px", backgroundColor: "rgba(0, 0, 0, 0.3)"}} />
           <Stack sx={{ width: "max-column" }} direction="column" alignItems="center" spacing={3}>
             {Nav_Buttons.map((el) => (
               el.index === selected ?
@@ -53,7 +54,7 @@ const SideBar = () => {
                   {el.icon}
                 </IconButton>
             ))}
-            <Divider sx={{ width: "48px" }} />
+            <Divider sx={{ width: "48px" , borderWidth: "2px", backgroundColor: "rgba(0, 0, 0, 0.3)"}} />
             {selected === 3 ?
               <Box sx={{ backgroundColor: theme.palette.primary.main, borderRadius: 1.5, }}>
                 <IconButton sx={{ width: "max-content", color: "#fff" }}>
