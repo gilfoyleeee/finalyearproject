@@ -18,6 +18,7 @@ const BlockDialogBox = ({open, handleClose}) => {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        TransitionComponent={Transition}
       >
         <DialogTitle id="alert-dialog-title">
         Block User?
@@ -45,6 +46,7 @@ const DeleteChatDialog = ({open, handleClose}) => {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        TransitionComponent={Transition}
       >
         <DialogTitle id="alert-dialog-title">
         Delete Chat History?
@@ -76,7 +78,7 @@ const Contact = () => {
     setOpenBlock(false);
   }
   const handleCloseDelete = () => {
-    setOpenBlock(false);
+    setOpenDelete(false);
   }
 
   return (
