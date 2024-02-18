@@ -13,20 +13,21 @@ import {
   StyledInputBase,
 } from "../../components/Search";
 import { MagnifyingGlass, Plus } from "phosphor-react";
-import { useTheme } from "@mui/material/styles";
 import { SimpleBarStyle } from "../../components/Scrollbar";
-import { ChatList } from "../../data";
-import ChatElement from "../../components/ChatElement";
-import CreateGroupChat from "../../sections/main/CreateGroupChat";
+import { useTheme } from "@mui/material/styles";
+import { CallElement, CallLogElement } from "../../components/CallLogElement";
+import { Call_History } from "../../data";
+import CallDialog from "../../sections/main/CallDialog";
 
-const GroupChat = () => {
+const Call = () => {
   const theme = useTheme();
-  const [openGCDialog, setopenGCDialog] = useState(false);
-  const handleOpenGCDialog = () => {
-    setopenGCDialog(true);
+
+  const [openCallDialog, setopenCallDialog] = useState(false);
+  const handleopenCallDialog = () => {
+    setopenCallDialog(true);
   };
-  const handleCloseGCDialog = () => {
-    setopenGCDialog(false);
+  const handlecloseCallDialog = () => {
+    setopenCallDialog(false);
   };
   return (
     <>
@@ -45,7 +46,7 @@ const GroupChat = () => {
         >
           <Stack p={3} spacing={2} sx={{ maxHeight: "100vh" }}>
             <Stack>
-              <Typography variant="h5">Groups</Typography>
+              <Typography variant="h5">Call Logs</Typography>
             </Stack>
             <Stack sx={{ width: "100%" }}>
               <Search>
@@ -64,9 +65,9 @@ const GroupChat = () => {
               alignItems={"center"}
             >
               <Typography variant="subtitle2" component={Link}>
-                Create New Group
+                Start call
               </Typography>
-              <IconButton onClick={handleOpenGCDialog}>
+              <IconButton onClick={handleopenCallDialog}>
                 <Plus
                   style={{ color: (theme) => theme.palette.primary.main }}
                 />
@@ -75,26 +76,14 @@ const GroupChat = () => {
             <Divider />
             <Stack
               spacing={3}
-              sx={{ flexGrow: 1, overflowY: "scroll", height: "100%" }}
+              // sx={{ flexGrow: 1, overflowY: "scroll", height: "100%" }}
             >
               <SimpleBarStyle timeout={500} clickOnTrack={false}>
                 <Stack spacing={2.5}>
-                  <Typography variant="subtitle2" sx={{ color: "#676667" }}>
-                    Pinned
-                  </Typography>
-                  {ChatList.filter((el) => el.pinned).map((el) => {
-                    return <ChatElement key={el.id} {...el} />;
-                  })}
-                  <Typography
-                    spacing={2}
-                    variant="subtitle2"
-                    sx={{ color: "#676667" }}
-                  >
-                    All Groups
-                  </Typography>
-                  {ChatList.filter((el) => !el.pinned).map((el) => {
-                    return <ChatElement key={el.id} {...el} />;
-                  })}
+                  {/* Call logs */}
+                  {Call_History.map((el) => (
+                    <CallLogElement {...el} />
+                  ))}
                 </Stack>
               </SimpleBarStyle>
             </Stack>
@@ -103,14 +92,11 @@ const GroupChat = () => {
 
         {/* Right Section */}
       </Stack>
-      {openGCDialog && (
-        <CreateGroupChat
-          open={openGCDialog}
-          handleClose={handleCloseGCDialog}
-        />
+      {openCallDialog && (
+        <CallDialog open={openCallDialog} handleClose={handlecloseCallDialog} />
       )}
     </>
   );
 };
 
-export default GroupChat;
+export default Call;

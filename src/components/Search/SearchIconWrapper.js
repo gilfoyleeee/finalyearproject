@@ -9,3 +9,5 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
 }));
+
+export default SearchIconWrapper;

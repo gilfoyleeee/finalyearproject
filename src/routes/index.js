@@ -25,9 +25,8 @@ export default function Router() {
       children: [
         { element: <LoginPage />, path: "login" },
         { element: <RegisterPage />, path: "register" },
-        { element: <ResetPwPage />, path: "resetpw" },        
-        { element: <SetNewPwPage />, path: "setnewpw" },        
-
+        { element: <ResetPwPage />, path: "resetpw" },
+        { element: <SetNewPwPage />, path: "setnewpw" },
       ],
     },
     {
@@ -38,6 +37,8 @@ export default function Router() {
         { path: "app", element: <GeneralApp /> },
         { path: "settings", element: <Settings /> },
         { path: "groupchat", element: <GroupChatPage /> },
+        { path: "call", element: <CallPage /> },
+        { path: "userprofile", element: <UserProfilePage /> },
 
         { path: "404", element: <Page404 /> },
         { path: "*", element: <Navigate to="/404" replace /> },
@@ -58,6 +59,12 @@ const GeneralApp = Loadable(
 
 const Settings = Loadable(lazy(() => import("../pages/dashboard/Settings")));
 
-const GroupChatPage = Loadable(lazy(() => import("../pages/dashboard/GroupChat")));
+const CallPage = Loadable(lazy(() => import("../pages/dashboard/Call")));
+const GroupChatPage = Loadable(
+  lazy(() => import("../pages/dashboard/GroupChat"))
+);
+const UserProfilePage = Loadable(
+  lazy(() => import("../pages/dashboard/UserProfile"))
+);
 
 const Page404 = Loadable(lazy(() => import("../pages/Page404")));

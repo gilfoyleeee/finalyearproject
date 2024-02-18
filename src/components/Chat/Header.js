@@ -92,10 +92,10 @@ const ChatHeader = () => {
         </Stack>
         <Stack direction={"row"} alignItems="center" spacing={isMobile ? 1 : 3}>
           <IconButton>
-            <VideoCamera />
+            <Phone />
           </IconButton>
           <IconButton>
-            <Phone />
+            <VideoCamera />
           </IconButton>
           {!isMobile && (
             <IconButton>
