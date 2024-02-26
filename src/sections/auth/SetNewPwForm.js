@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useSearchParams } from "react-router-dom";
 import {
   Link,
   Alert,
@@ -14,21 +14,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormProvider from "../../components/hook-form/FormProvider";
 import { RHFTextField } from "../../components/hook-form";
 import { Eye, EyeSlash } from "phosphor-react";
+import { useDispatch } from "react-redux";
+import { SetNewUserPw } from "../../redux/slices/auth";
 
 export default function SetNewPwForm() {
+  const [queryParameters] = useSearchParams();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
   const SetNewPwSchema = Yup.object().shape({
-    newPw: Yup.string()
+    password: Yup.string()
       .min(8, "Minimum length for passoword is 8 !")
       .required("New Password cannot be empty !"),
     confirmPw: Yup.string()
       .required("Confirm password cannot be empty !")
-      .oneOf([Yup.ref("newPw"), null], "Password must match"),
+      .oneOf([Yup.ref("password"), null], "Password must match"),
   });
 
   const defaultValues = {
-    newPw: "",
+    password: "",
     confirmPw: "",
   };
 
@@ -47,13 +51,9 @@ export default function SetNewPwForm() {
   const onSubmit = async (data) => {
     try {
       //submit data to backend
+      dispatch(SetNewUserPw({...data, token: queryParameters.get('token') }));
     } catch (error) {
       console.log(error);
-      reset();
-      setError("afterSubmit", {
-        ...error,
-        message: error.message,
-      });
     }
   };
 
@@ -66,7 +66,7 @@ export default function SetNewPwForm() {
           )}
 
           <RHFTextField
-            name="newPw"
+            name="password"
             label="New Password"
             type={showPassword ? "text" : "password"}
             InputProps={{

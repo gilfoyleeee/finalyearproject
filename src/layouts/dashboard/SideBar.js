@@ -16,6 +16,8 @@ import { faker } from "@faker-js/faker";
 import Logo from "../../assets/Images/logo.ico";
 import AntSwitch from "../../components/AntSwitch";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { UserLogOut } from "../../redux/slices/auth";
 
 const getNavPath = (index) => {
   switch (index) {
@@ -54,6 +56,7 @@ const getMenuPath = (index) => {
 };
 
 const SideBar = () => {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const navigate = useNavigate();
   const [selected, setSelected] = useState(0);
@@ -222,14 +225,19 @@ const SideBar = () => {
                 >
                   <Stack
                     onClick={() => {
-                      navigate(getMenuPath(menuID));
+                      if (menuID === 2) {
+                        dispatch(UserLogOut());
+                      } else {
+                        navigate(getMenuPath(menuID));
+                      }
                     }}
                     sx={{ width: 100 }}
                     direction={"row"}
                     alignItems={"center"}
                     justifyContent={"space-between"}
                   >
-                    <span>{el.title}</span>{el.icon}
+                    <span>{el.title}</span>
+                    {el.icon}
                   </Stack>
                 </MenuItem>
               ))}

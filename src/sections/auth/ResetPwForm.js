@@ -5,8 +5,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormProvider from "../../components/hook-form/FormProvider";
 import { RHFTextField } from "../../components/hook-form";
+import { ForgotUserPw } from "../../redux/slices/auth";
+import { useDispatch } from "react-redux";
 
 export default function ResetPwForm() {
+  const dispatch = useDispatch();
   const ResetPwSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email cannot be empty !")
@@ -31,7 +34,9 @@ export default function ResetPwForm() {
 
   const onSubmit = async (data) => {
     try {
+      //data is gonna be email
       //submit data to backend
+      dispatch(ForgotUserPw(data));
     } catch (error) {
       console.log(error);
       reset();

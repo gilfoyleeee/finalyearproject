@@ -14,10 +14,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormProvider from "../../components/hook-form/FormProvider";
 import { RHFTextField } from "../../components/hook-form";
 import { Eye, EyeSlash } from "phosphor-react";
+import { UserLogin } from "../../redux/slices/auth";
+import { useDispatch } from "react-redux";
 
 export default function LoginForm() {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email cannot be empty !")
@@ -27,7 +30,7 @@ export default function LoginForm() {
 
   const defaultValues = {
     email: "test@gmail.com",
-    password: "test",
+    password: "test1234",
   };
 
   const methods = useForm({
@@ -41,10 +44,11 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = methods;
-
+  //data is going to give us properties of default values i.e. email and pw
   const onSubmit = async (data) => {
     try {
       //submit data to backend
+      dispatch(UserLogin(data));
     } catch (error) {
       console.log(error);
       reset();
