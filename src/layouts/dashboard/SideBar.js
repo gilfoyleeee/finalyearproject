@@ -9,7 +9,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Gear } from "phosphor-react";
+import { Gear, User } from "phosphor-react";
 import { Nav_Buttons, Profile_Menu } from "../../data";
 import useSettings from "../../hooks/useSettings";
 import { faker } from "@faker-js/faker";
@@ -18,6 +18,7 @@ import AntSwitch from "../../components/AntSwitch";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UserLogOut } from "../../redux/slices/auth";
+import Friends from "../../sections/main/Friends";
 
 const getNavPath = (index) => {
   switch (index) {
@@ -70,8 +71,16 @@ const SideBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   return (
+    <>
     <Box
       p={2}
       sx={{
@@ -112,6 +121,13 @@ const SideBar = () => {
             alignItems="center"
             spacing={3}
           >
+          <IconButton
+                onClick={() => {
+                  handleOpenDialog()
+                }}
+              >
+                <User />
+              </IconButton>
             {Nav_Buttons.map((el) =>
               el.index === selected ? (
                 <Box
@@ -246,6 +262,10 @@ const SideBar = () => {
         </Stack>
       </Stack>
     </Box>
+    {openDialog && (
+      <Friends open={openDialog} handleClose={handleCloseDialog} />
+    )}
+    </>
   );
 };
 

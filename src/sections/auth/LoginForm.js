@@ -7,6 +7,7 @@ import {
   InputAdornment,
   Stack,
   Button,
+  Typography,
 } from "@mui/material";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
@@ -29,8 +30,8 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    email: "test@gmail.com",
-    password: "test1234",
+    email: "",
+    password: "",
   };
 
   const methods = useForm({
@@ -87,17 +88,7 @@ export default function LoginForm() {
             }}
           />
         </Stack>
-        <Stack alignItems={"flex-end"} sx={{ my: 2 }}>
-          <Link
-            component={RouterLink}
-            to="/auth/resetpw"
-            variant="body2"
-            color="inherit"
-            underline="always"
-          >
-            Forgot password?
-          </Link>
-        </Stack>
+        <Stack sx={{ my: 2.5}}>
         <Button
           fullWidth
           color="inherit"
@@ -117,6 +108,21 @@ export default function LoginForm() {
         >
           Login
         </Button>
+        </Stack>
+        <Stack direction={"row"} alignItems={"flex-end"} sx={{ my: 2 }}>
+        <Typography variant="subtitle">
+          Forgot Password?
+        </Typography>
+          <Link
+            component={RouterLink}
+            to="/auth/resetpw"
+            variant="body2"
+            color="inherit"
+            underline="always"
+          >
+            Click here
+          </Link>
+        </Stack>
       </FormProvider>
     </>
   );

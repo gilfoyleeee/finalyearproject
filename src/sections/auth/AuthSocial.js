@@ -6,7 +6,7 @@ const AuthSocial = () => {
     return (
         <div>
             <Divider sx={{ my: 2.5, typography: "overline", color: "text.disabled", "&::before, ::afer": { borderTopStyle: "dashed" } }}>
-                OR
+                OR Login by
             </Divider>
             <Stack direction={"row"} justifyContent="center" spacing={2}>
                 <IconButton>

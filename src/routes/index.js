@@ -23,8 +23,9 @@ export default function Router() {
       path: "/auth",
       element: <MainLayout />,
       children: [
-        { element: <LoginPage />, path: "login" },
         { element: <RegisterPage />, path: "register" },
+        { element: <VerifyOTPPage />, path: "verifyotp" },
+        { element: <LoginPage />, path: "login" },
         { element: <ResetPwPage />, path: "resetpw" },
         { element: <SetNewPwPage />, path: "setnewpw" },
       ],
@@ -48,14 +49,14 @@ export default function Router() {
   ]);
 }
 
-const LoginPage = Loadable(lazy(() => import("../pages/auth/Login")));
-const RegisterPage = Loadable(lazy(() => import("../pages/auth/Register")));
-const ResetPwPage = Loadable(lazy(() => import("../pages/auth/ResetPassword")));
-const SetNewPwPage = Loadable(lazy(() => import("../pages/auth/SetNewPw")));
-
 const GeneralApp = Loadable(
   lazy(() => import("../pages/dashboard/GeneralApp"))
 );
+const RegisterPage = Loadable(lazy(() => import("../pages/auth/Register")));
+const VerifyOTPPage = Loadable(lazy(() => import("../pages/auth/VerifyOTP")));
+const LoginPage = Loadable(lazy(() => import("../pages/auth/Login")));
+const ResetPwPage = Loadable(lazy(() => import("../pages/auth/ResetPassword")));
+const SetNewPwPage = Loadable(lazy(() => import("../pages/auth/SetNewPw")));
 
 const Settings = Loadable(lazy(() => import("../pages/dashboard/Settings")));
 
