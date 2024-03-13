@@ -11,6 +11,7 @@ import {
 import { styled, useTheme } from "@mui/material/styles";
 import { Chat } from "phosphor-react";
 import { socket } from "../socket";
+// import StyledBadge from "./StyledBadge";
 
 const user_id = window.localStorage.getItem("user_id");
 
@@ -50,6 +51,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const UserElement = ({ img, firstName, lastName, online, _id }) => {
+  // const user_id = window.localStorage.getItem("user_id");
   const theme = useTheme();
 
   const name = `${firstName} ${lastName}`;
@@ -90,8 +92,10 @@ const UserElement = ({ img, firstName, lastName, online, _id }) => {
         <Stack direction={"row"} spacing={2} alignItems={"center"}>
           <Button
             onClick={() => {
-              socket.emit("friend_request", { to: _id, from: user_id }, () => {
+              console.log("clicked");
+              socket.emit("frn_request", { to: _id, from: user_id }, () => {
                 alert("request sent");
+                console.log("done");
               });
             }}
           >
@@ -111,6 +115,7 @@ const FriendRequestElement = ({
   missed,
   online,
   id,
+  _id,
 }) => {
   const theme = useTheme();
 
@@ -175,6 +180,7 @@ const FriendElement = ({
   online,
   _id,
 }) => {
+  // const user_id = window.localStorage.getItem("user_id");
   const theme = useTheme();
 
   const name = `${firstName} ${lastName}`;
@@ -216,7 +222,7 @@ const FriendElement = ({
           <IconButton
             onClick={() => {
               // start a new conversation
-            //   socket.emit("start_conversation", { to: _id, from: user_id });
+              socket.emit("start_conversation", { to: _id, from: user_id });
             }}
           >
             <Chat />

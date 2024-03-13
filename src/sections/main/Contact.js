@@ -4,8 +4,8 @@ import { X, Phone, VideoCamera, CaretRight, Star, Bell, Prohibit, Trash } from "
 import { faker } from "@faker-js/faker";
 import React, { useState } from 'react'
 import { useDispatch } from "react-redux";
-import { ToggleSidebar, UpdateSidebarType } from "../redux/slices/app";
-import AntSwitch from "./AntSwitch";
+import { ToggleSidebar, UpdateSidebarType } from "../../redux/slices/app";
+import AntSwitch from "../../components/AntSwitch";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

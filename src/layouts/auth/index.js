@@ -1,14 +1,17 @@
-import { Container, Stack } from "@mui/material";
 import React from "react";
+import { Container, Stack } from "@mui/material";
 import { Navigate, Outlet } from "react-router-dom";
+
 import Logo from "../../assets/Images/logo.ico";
 import { useSelector } from "react-redux";
 
-const MainLayout = () => {
+const AuthLayout = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
+
   if (isLoggedIn) {
-    return <Navigate to={"/app"}/>;
+    return <Navigate to={"/app"} />;
   }
+
   return (
     <>
       <Container sx={{ mt: 5 }} maxWidth="sm">
@@ -18,13 +21,13 @@ const MainLayout = () => {
             direction="column"
             alignItems={"center"}
           >
-            <img style={{ height: 120, width: 180 }} src={Logo} alt="Logo" />
+            <img style={{ height: 120, width: 120 }} src={Logo} alt="Logo" />
           </Stack>
+          <Outlet />
         </Stack>
-        <Outlet />
       </Container>
     </>
   );
 };
 
-export default MainLayout;
+export default AuthLayout;

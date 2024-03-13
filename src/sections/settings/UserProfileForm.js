@@ -10,20 +10,24 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormProvider from "../../components/hook-form/FormProvider";
 import { RHFTextField } from "../../components/hook-form";
 
+import { useDispatch, useSelector } from "react-redux";
+
 const UserProfileForm = () => {
-  const LoginSchema = Yup.object().shape({
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.app);
+  const ProfileSchema = Yup.object().shape({
     userName: Yup.string().required("Name cannot be empty !"),
     userBio: Yup.string().required("Bio cannot be empty !"),
     avatarURL: Yup.string().required("Avatar cannot be empty !").nullable(true),
   });
 
   const defaultValues = {
-    userName: "",
+    userName: "user?.firstName",
     userBio: "",
   };
 
   const methods = useForm({
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver(ProfileSchema),
     defaultValues,
   });
 
@@ -34,7 +38,7 @@ const UserProfileForm = () => {
     setError,
     setValue,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: {errors,isSubmitting, isSubmitSuccessful },
   } = methods;
 
   const values = watch();

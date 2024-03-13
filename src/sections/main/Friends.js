@@ -6,49 +6,49 @@ import {
   FetchFrnRequests,
   FetchUsers,
 } from "../../redux/slices/app";
-import { FriendElement, FriendRequestElement, UserElement } from "../../components/Friends";
+import { FriendElement, FriendRequestElement, UserElement } from "../../components/UserElement";
 
-const FriendsList = () => {
+const UsersList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(FetchFriends);
+    dispatch(FetchUsers());
   }, []);
-  const { friends } = useSelector((state) => state.app);
+  const { users } = useSelector((state) => state.app);
 
   return (
     <>
-      {FriendElement.map((el, index) => {
-        return <FriendElement key={index} {...el} />;
+      {users.map((el, index) => {
+        return <UserElement key={el._id} {...el}/>
+      })}
+    </>
+  );
+};
+const FriendsList = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(FetchFriends());
+  }, []);
+  const { friends } = useSelector((state) => state.app);
+  
+  return (
+    <>
+      {friends.map((el, index) => {
+        return <FriendElement key={el._id} {...el} />;
       })}
     </>
   );
 };
 const FriendRequestsList = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(FetchFrnRequests);
-  }, []);
   const { friendRequests } = useSelector((state) => state.app);
-
-  return (
-    <>
-      {FriendRequestElement.map((el, index) => {
-        return <FriendRequestElement key={index} {...el.sender} id={el._id} />;
-      })}
-    </>
-  );
-};
-const UsersList = () => {
-  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(FetchUsers);
+    dispatch(FetchFrnRequests());
   }, []);
-  const { users } = useSelector((state) => state.app);
 
   return (
     <>
-      {UserElement.map((el, index) => {
-        return <UserElement key={el._id} {...el}/>
+      {friendRequests.map((el, index) => {
+        return <FriendRequestElement key={el._id} {...el.sender} id={el._id} />;
       })}
     </>
   );
@@ -79,7 +79,7 @@ const Friends = ({ open, handleClose }) => {
         {/* dialog content here */}
         <DialogContent>
           <Stack sx={{ height: "100%" }}>
-            <Stack spacing={2.5}>
+            <Stack spacing={2.4}>
               {(() => {
                 switch (value) {
                   case 0: //display all friends

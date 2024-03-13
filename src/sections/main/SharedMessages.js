@@ -2,11 +2,12 @@ import { useTheme } from '@mui/material/styles';
 import { Box, Stack, Typography, IconButton, Tabs, Tab, Grid } from '@mui/material';
 import React from "react";
 import { useDispatch } from 'react-redux';
-import { UpdateSidebarType } from '../redux/slices/app';
+import { UpdateSidebarType } from '../../redux/slices/app';
 import { CaretLeft } from 'phosphor-react';
 import { faker } from '@faker-js/faker';
-import { SHARED_DOCS } from '../data';
-import { DocMsg, LinkMsg } from './conversation/MsgTypes';
+import { SHARED_DOCS } from '../../data';
+import { DocMsg, LinkMsg } from './Conversation';
+
 
 const SharedMessages = () => {
     const theme = useTheme();

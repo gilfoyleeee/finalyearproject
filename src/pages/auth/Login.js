@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import AuthSocial from "../../sections/auth/AuthSocial";
 import LoginForm from "../../sections/auth/LoginForm";
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <>
       <Stack spacing={2} sx={{ mb: 5, position: "relative" }}>
@@ -27,4 +27,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

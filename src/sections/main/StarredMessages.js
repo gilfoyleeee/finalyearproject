@@ -2,9 +2,9 @@ import { useTheme } from '@mui/material/styles';
 import { Box, Stack, Typography, IconButton} from '@mui/material';
 import React from "react";
 import { useDispatch } from 'react-redux';
-import { UpdateSidebarType } from '../redux/slices/app';
+import { UpdateSidebarType } from '../../redux/slices/app';
 import { CaretLeft } from 'phosphor-react';
-import Message from './conversation/Message';
+
 
 const StarredMessages = () => {
     const theme = useTheme();
@@ -39,7 +39,7 @@ const StarredMessages = () => {
                     p={3}
                     spacing={3}
                 >
-                    <Message />
+                    {/* <Message /> */}
                 </Stack>
             </Stack>
         </Box>

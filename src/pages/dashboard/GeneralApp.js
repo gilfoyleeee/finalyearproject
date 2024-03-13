@@ -1,17 +1,20 @@
 import React from "react";
 import Chats from "./Chats";
 import { Box, Stack, Typography } from "@mui/material";
-import Conversation from "../../components/conversation";
+// import Conversation from "../../components/conversation";
 import { useTheme } from "@mui/material/styles";
-import Contact from "../../components/Contact";
 import { useSelector } from "react-redux";
-import SharedMessages from "../../components/SharedMessages";
-import StarredMessages from "../../components/StarredMessages";
+import { Link, useSearchParams } from "react-router-dom";
+import ChatComponent from "./Conversation";
 import NoChat from "../../assets/Illustration/NoChat";
+import Contact from "../../sections/main/Contact";
+import StarredMessages from "../../sections/main/StarredMessages";
+import SharedMessages from "../../sections/main/SharedMessages";
 
 const GeneralApp = () => {
+  const [searchParams] = useSearchParams();
   const theme = useTheme();
-  const { sidebar, chat_type, room_id } = useSelector((store) => store.app);
+  const { sideBar, chat_type, room_id } = useSelector((state) => state.app);
 
   return (
     <Stack direction={"row"} sx={{ width: "100%" }}>
@@ -19,33 +22,38 @@ const GeneralApp = () => {
       <Box
         sx={{
           height: "100%",
-          width: sidebar.open ? "calc(100vw - 740px)" : "calc(100vw - 420px)",
+          width: sideBar.open ? "calc(100vw - 740px)" : "calc(100vw - 420px)",
           backgroundColor:
             theme.palette.mode === "light"
               ? "#F0F4FA"
               : theme.palette.background.paper,
+          borderBottom:
+            searchParams.get("type") === "individual-chat" &&
+            searchParams.get("id")
+              ? "0px"
+              : "6px solid #0162C4",
         }}
       >
         {room_id !== null && chat_type === "direct" ? (
-          <Conversation />
+          <ChatComponent />
         ) : (
           <Stack
             spacing={2}
             sx={{ height: "100%", width: "100%" }}
-            alignItems={"center"}
-            justifyContent={"center"}
+            alignItems="center"
+            justifyContent="center"
           >
-          <NoChat/>
-            <Typography>
+            <NoChat />
+            <Typography variant="subtitle2">
               Wanna chat? Select a conversation or create new one.
             </Typography>
           </Stack>
         )}
       </Box>
       {/* Contact */}
-      {sidebar.open &&
+      {sideBar.open &&
         (() => {
-          switch (sidebar.type) {
+          switch (sideBar.type) {
             case "CONTACT":
               return <Contact />;
 

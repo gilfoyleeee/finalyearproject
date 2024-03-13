@@ -6,6 +6,8 @@ const initialState = {
   isLoggedIn: false,
   token: "",
   isLoading: false,
+  user: null,
+  user_id: null,
   email: "",
   error: false,
 };
@@ -21,10 +23,12 @@ const slice = createSlice({
     logIn(state, action) {
       state.isLoggedIn = action.payload.isLoggedIn;
       state.token = action.payload.token;
+      state.user_id = action.payload.user_id;
     },
     logOut(state, action) {
       state.isLoggedIn = false;
       state.token = "";
+      state.user_id = null;
     },
     updateRegisterEmail(state, action) {
       state.email = action.payload.email;
@@ -57,6 +61,7 @@ export function UserLogin(formValues) {
           slice.actions.logIn({
             isLoggedIn: true,
             token: response.data.token,
+            user_id: response.data.user_id,
           })
         );
         window.localStorage.setItem("user_id", response.data.user_id);
@@ -65,6 +70,9 @@ export function UserLogin(formValues) {
             severity: "success",
             message: response.data.message,
           })
+        );
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
         );
       })
       .catch(function (error) {
@@ -161,11 +169,15 @@ export function UserRegister(formValues) {
           })
         );
         dispatch(
+          showSnackbar({ severity: "success", message: response.data.message })
+        );
+        dispatch(
           slice.actions.updateIsLoading({ isLoading: false, error: false })
         );
       })
-      .catch((error) => {
+      .catch(function (error) {
         console.log(error);
+        dispatch(showSnackbar({ severity: "error", message: error.message }));
         dispatch(
           slice.actions.updateIsLoading({ isLoading: false, error: true })
         );
@@ -196,18 +208,23 @@ export function VerifyEmailForRegister(formValues) {
       .then((response) => {
         console.log(response);
         dispatch(slice.actions.updateRegisterEmail({ email: "" }));
+        window.localStorage.setItem("user_id", response.data.user_id);
         dispatch(
           slice.actions.logIn({
             isLoggedIn: true,
             token: response.data.token,
           })
         );
-        window.localStorage.setItem("user_id", response.data.user_id);
+        dispatch(
+          showSnackbar({ severity: "success", message: response.data.message })
+        );
       });
+
     dispatch(
       slice.actions.updateIsLoading({ isLoading: false, error: false })
     ).catch((error) => {
       console.log(error);
+      dispatch(showSnackbar({ severity: "error", message: error.message }));
       dispatch(
         slice.actions.updateIsLoading({ error: true, isLoading: false })
       );
